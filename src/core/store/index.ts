@@ -12,6 +12,7 @@ import {
   moduleKey as stuffModuleKey,
   reducer as stuffReducer,
 } from './modules/stuff'
+import { AsyncReducers } from './types'
 
 export const browserHistory = createBrowserHistory({
   basename: BASENAME_URL,
@@ -24,8 +25,7 @@ const getInitialStore = () => {
     [stuffModuleKey]: stuffReducer,
   }
 
-  // @ts-ignore
-  function dynamicAddReducer(asyncReducers) {
+  function dynamicAddReducer(asyncReducers: AsyncReducers) {
     return combineReducers({
       ...staticReducers,
       ...asyncReducers,
@@ -34,7 +34,6 @@ const getInitialStore = () => {
 
   const store = configureStore({
     reducer: { ...staticReducers },
-    // @ts-ignore
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false }).concat(
         routerMiddleware(browserHistory)
@@ -42,16 +41,12 @@ const getInitialStore = () => {
   })
 
   // Add a dictionary to keep track of the registered async reducers
-  // @ts-ignore
   store.asyncReducers = {}
 
   // Create an inject reducer function
   // This function adds the async reducer, and creates a new combined reducer
-  // @ts-ignore
   store.injectReducer = (key, asyncReducer) => {
-    // @ts-ignore
     store.asyncReducers[key] = asyncReducer
-    // @ts-ignore
     store.replaceReducer(dynamicAddReducer(store.asyncReducers))
   }
 

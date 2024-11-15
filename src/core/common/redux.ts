@@ -49,7 +49,10 @@ export const finishSuffix = (actionType: string): string =>
  */
 export const failSuffix = (actionType: string): string => `${actionType}_FAIL`
 
-export type TActionData = { type: string; [key: string]: unknown }
+export type TActionData = {
+  type: string
+  [key: string]: unknown
+}
 
 type TActionDataOrType = string | ActionCreatorWithoutPayload | TActionData
 

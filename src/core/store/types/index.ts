@@ -1,5 +1,6 @@
+import { Reducer } from '@reduxjs/toolkit'
 import { RouterState } from 'connected-react-router'
-import { moduleKey as operationsGR } from 'goods-receipts/store/operations.gr'
+import { moduleKey as operationsGR } from 'goods-receipts/store/modules/common'
 import { Location } from 'history'
 
 import { store } from '../index'
@@ -10,6 +11,8 @@ import { TCommonState } from './modules/common'
 import { TStuffState } from './modules/stuff'
 
 export type AppDispatch = typeof store.dispatch
+
+export type AsyncReducers = Record<string, Reducer>
 
 export type TRootState = {
   router: RouterState<Location>
