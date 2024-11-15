@@ -4,12 +4,12 @@ import { shallowEqual, useSelector } from 'react-redux'
 import { Card } from '@blueprintjs/core'
 
 import { push } from 'connected-react-router'
+import { OperationForm } from 'goods-receipts/components/operation-form'
 import {
   DEFAULT_CREATE_NEW_TYPE,
   getLinkAfterSuccessCreation,
   GR_CREATE_NEW_OP_TYPE_LOCAL_STORAGE_KEY,
 } from 'goods-receipts/components/operation-form/common'
-import OperationForm from 'goods-receipts/components/operation-form/OperationForm'
 import { createOperation } from 'goods-receipts/store/modules/actions'
 import moment from 'moment'
 

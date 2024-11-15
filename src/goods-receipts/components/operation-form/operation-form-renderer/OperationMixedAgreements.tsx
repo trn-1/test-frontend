@@ -15,7 +15,7 @@ import {
   FIELD_MIXED_AGREEMENT,
   FORM_AGREEMENT_LABEL,
   FORM_SUPPLIER_LABEL,
-} from './constants'
+} from '../constants'
 
 interface IOperationMixedAgreementsProps {
   operation: Partial<TGROperation>

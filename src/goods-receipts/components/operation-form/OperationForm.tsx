@@ -16,8 +16,8 @@ import {
   validate,
 } from 'core/validation/operations.gr'
 
-import ExistOperationWithSupNumberAlert from './ExistOperationWithSupNumberAlert'
-import { OperationFormRenderer } from './OperationFormRenderer'
+import { ExistOperationWithSupNumberAlert } from './ExistOperationWithSupNumberAlert'
+import { OperationFormRenderer } from './operation-form-renderer'
 
 const focusOnErrors = createDecorator()
 

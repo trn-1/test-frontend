@@ -4,7 +4,7 @@ import { Redirect, Route, Switch } from 'react-router-dom'
 
 import { GR_OPERATION_NEW } from 'core/common/routes'
 
-import NewOperationPage from './pages/new-operation/NewOperation'
+import { NewOperationPage } from './pages/new-operation'
 import { moduleKey as operationsModuleKey } from './store/modules/common'
 import { reducer as operationsReducer } from './store/modules/slice'
 

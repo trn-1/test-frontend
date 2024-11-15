@@ -12,7 +12,7 @@ type ExistOperationWithSupNumberAlertProps = {
   supNumber?: TGROperation['supNumber']
 }
 
-const ExistOperationWithSupNumberAlert = ({
+export const ExistOperationWithSupNumberAlert = ({
   isOpen,
   confirmAlert,
   closeAlert,
@@ -34,5 +34,3 @@ const ExistOperationWithSupNumberAlert = ({
     </span>
   </Alert>
 )
-
-export default ExistOperationWithSupNumberAlert

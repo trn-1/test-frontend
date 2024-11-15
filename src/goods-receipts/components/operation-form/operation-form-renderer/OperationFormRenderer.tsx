@@ -47,7 +47,7 @@ import {
   FORM_SUPPLIER_DATE_LABEL,
   FORM_SUPPLIER_NUMBER_LABEL,
   FORM_WORKER_LABEL,
-} from './constants'
+} from '../constants'
 import { CreateOperationButton } from './CreateOperationButton'
 import { OperationMixedAgreements } from './OperationMixedAgreements'
 

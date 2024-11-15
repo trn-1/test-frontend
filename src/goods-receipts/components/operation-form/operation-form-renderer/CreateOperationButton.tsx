@@ -13,7 +13,7 @@ import {
   DEFAULT_CREATE_NEW_OPTION,
   DEFAULT_CREATE_NEW_TYPE,
   GR_CREATE_NEW_OP_TYPE_LOCAL_STORAGE_KEY,
-} from './common'
+} from '../common'
 
 interface IProps {
   loading: boolean
