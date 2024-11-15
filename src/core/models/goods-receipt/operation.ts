@@ -16,12 +16,14 @@ export type TGROperation = {
   supBuyAmountHV: string
   supNumber: null | string
   supShipmentDate: null | string
-  supplier: any
+  supplier: {
+    id: number
+  }
   status: number
   sumSOQuantity: number
   sumQuantity: number
   positionsCount: number
-  repaymentPeriod: number
+  repaymentPeriod: null | number
   debt: number
   debtHV: string
 }

@@ -2,7 +2,7 @@ import { delay } from 'core/common/utils'
 import { MixedAgreementsResponse } from 'core/models/agreement'
 
 async function getMixedAgreements(): Promise<MixedAgreementsResponse> {
-  await delay(3000)
+  await delay(500)
 
   return {
     data: [

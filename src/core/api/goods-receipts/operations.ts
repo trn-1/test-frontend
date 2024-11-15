@@ -12,7 +12,7 @@ type TGROperationsRequestFilters = {
 export async function getOperationsList(
   _: TGROperationsRequestFilters // eslint-disable-line
 ): Promise<TGROperationsListRO> {
-  await delay(3000)
+  await delay(500)
   return {
     total: 1,
     list: [
@@ -36,8 +36,8 @@ export async function getOperationsList(
         supBuyAmountHV: '',
         supBuyPriceAmount: 2,
         supBuyPriceAmountHV: '',
-        supNumber: '',
-        supplier: '',
+        supNumber: '1',
+        supplier: { id: 1 },
         supShipmentDate: '',
         worker: '',
       },
@@ -48,7 +48,7 @@ export async function getOperationsList(
 export async function createOperation(
   _: TGROperationCreateBody // eslint-disable-line
 ): Promise<TGROperation> {
-  await delay(3000)
+  await delay(500)
   return {
     agreement: null,
     agreementId: 0,
@@ -70,7 +70,7 @@ export async function createOperation(
     supBuyPriceAmount: 2,
     supBuyPriceAmountHV: '',
     supNumber: '',
-    supplier: '',
+    supplier: { id: 1 },
     supShipmentDate: '',
     worker: '',
   }

@@ -19,18 +19,20 @@ export function preventSubmit(e: React.KeyboardEvent): void {
 }
 
 export function getDirtyFormData(
-  values: { [key: string]: unknown },
-  dirtyFieldsMap: { [key: string]: boolean } = {}
-): { [key: string]: unknown } | null {
-  const formData = {}
+  values: Record<string, unknown>,
+  dirtyFieldsMap: Record<string, boolean> = {}
+): Record<string, unknown> | null {
   const changedFields = Object.keys(dirtyFieldsMap)
+
   if (changedFields.length === 0) {
     return null
   }
+
+  const formData: Record<string, unknown> = {}
+
   for (let i = 0; i < changedFields.length; i += 1) {
     const field = changedFields[i]
 
-    // @ts-ignore
     formData[field] = values[field]
   }
   return formData

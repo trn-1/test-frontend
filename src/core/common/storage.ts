@@ -1,3 +1,4 @@
+import { CreateNewOpTypes } from 'goods-receipts/components/operation-form/common'
 import { get, set, unset } from 'lodash-es'
 
 import logger from './logger'
@@ -5,7 +6,7 @@ import logger from './logger'
 const prefix = 'testApp'
 
 class AppStorage {
-  state: Record<string, string | undefined>
+  state: Record<string, CreateNewOpTypes>
 
   constructor() {
     let i = 0

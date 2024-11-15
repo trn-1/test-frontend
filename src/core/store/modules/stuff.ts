@@ -16,8 +16,13 @@ function moduleSelector<T extends unknown[], R>(
     selector(globalState[moduleKey], ...args)
 }
 
-export const selectEmployeeById = moduleSelector((state, id?: number | null) =>
-  state.list.find((item) => item.id === id)
+export const selectEmployeeById = moduleSelector(
+  (state, id?: number | null) => {
+    if (!id) {
+      return null
+    }
+    return state.list.find((item) => item.id === id) ?? null
+  }
 )
 
 export const selectEmployees = moduleSelector((state) => state.list)

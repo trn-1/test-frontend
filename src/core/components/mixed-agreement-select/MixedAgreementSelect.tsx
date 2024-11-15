@@ -109,7 +109,7 @@ export interface IMixedAgreementSelectProps {
   isClearButtonShow?: boolean
   loading?: boolean
   showBalance?: boolean
-  elementRef?: IRef<HTMLButtonElement> | undefined
+  elementRef?: IRef<HTMLButtonElement>
 }
 
 export default function MixedAgreementSelect({

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { ForwardedRef, useRef, useState } from 'react'
 
 import {
   Button,
@@ -46,7 +46,9 @@ export interface IMixedAgreementsAutocompleteProps {
   showBalance?: boolean
   isClearButtonShow?: boolean
   allowCreate?: boolean
-  inputRef?: { current: HTMLInputElement | null }
+  inputRef?:
+    | { current: HTMLInputElement | null }
+    | ForwardedRef<HTMLInputElement>
 }
 
 export default function MixedAgreementsAutocomplete({
@@ -55,7 +57,6 @@ export default function MixedAgreementsAutocomplete({
   onFocus = () => undefined,
   value = null,
   allowCreate = true,
-  contractorType = ContractorTypes.CLIENT,
   disabled = false,
   minQueryLength = 3,
   autoFocus = false,
@@ -97,10 +98,9 @@ export default function MixedAgreementsAutocomplete({
 
     const agreementsWithCreateField =
       allowedEmptyQuery && canCreate
-        ? [...mixedAgreements, OPTION_CREATE]
+        ? ([...mixedAgreements, OPTION_CREATE] as Option[])
         : mixedAgreements
 
-    // @ts-ignore
     setOptions(agreementsWithCreateField)
 
     if (mixedAgreements.length === 1) {
@@ -119,8 +119,9 @@ export default function MixedAgreementsAutocomplete({
   }, [loadImmediately, disabled])
 
   const handleChangeQuery = (nextQuery: string) => {
-    // @ts-ignore
-    clearTimeout(searchTimeout.current)
+    if (searchTimeout.current) {
+      clearTimeout(searchTimeout.current)
+    }
     setQuery(nextQuery)
     if (nextQuery.length >= minQueryLength) {
       setOptions([])
@@ -150,8 +151,9 @@ export default function MixedAgreementsAutocomplete({
   }
 
   const handleReset = (): void => {
-    // @ts-ignore
-    clearTimeout(searchTimeout.current)
+    if (searchTimeout.current) {
+      clearTimeout(searchTimeout.current)
+    }
     setQuery('')
     setLoading(false)
     if (!loadImmediately) {
@@ -190,7 +192,7 @@ export default function MixedAgreementsAutocomplete({
     inputRef: (input) => {
       localInputRef.current = input
 
-      if (inputRef) {
+      if (inputRef && 'current' in inputRef) {
         inputRef.current = input
       }
     },
@@ -233,8 +235,6 @@ export default function MixedAgreementsAutocomplete({
                   selected={isSelected}
                   showBalance={showBalance}
                   mixedAgreement={mixedAgreement}
-                  // @ts-ignore
-                  contractorType={contractorType}
                 />
               )
             }}

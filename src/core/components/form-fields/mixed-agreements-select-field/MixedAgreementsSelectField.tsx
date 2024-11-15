@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { ForwardedRef } from 'react'
 import { useField } from 'react-final-form'
 
 import { FormGroup, IRef } from '@blueprintjs/core'
@@ -15,10 +15,10 @@ type TInputProps = Omit<
 >
 
 interface IProps extends TFieldProps {
-  contractorId: number
+  contractorId?: number
   contractorType: ContractorTypes
   inputProps?: TInputProps
-  elementRef?: IRef<HTMLButtonElement> | undefined
+  elementRef?: IRef<HTMLButtonElement> | ForwardedRef<HTMLButtonElement> | null
   onlyActive?: boolean
   options: MixedAgreement[]
   onChange?: (value: MixedAgreement | null) => void
@@ -69,7 +69,7 @@ export default function MixedAgreementsSelectField({
         onSelect={handleSelect}
         onClear={handleClear}
         disabled={submitting || disabled}
-        elementRef={elementRef}
+        elementRef={elementRef ?? undefined}
       />
     </FormGroup>
   )

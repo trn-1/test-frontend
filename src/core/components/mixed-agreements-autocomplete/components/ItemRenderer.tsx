@@ -26,7 +26,10 @@ export default function ItemRenderer({
     return null
   }
 
-  // @ts-ignore
+  if (mixedAgreement === 'create') {
+    return null
+  }
+
   const { label, balanceHV, balance } = mixedAgreement
 
   const balanceIsNegative = balance < 0

@@ -54,7 +54,7 @@ export const CreateOperationButton = ({
 
   const [currentOption, setCurrentOption] = useState<TOption>(initialOption)
 
-  const handleSubmit = (type: string) => {
+  const handleSubmit = (type: CreateNewOpTypes) => {
     appStorage.setItem(GR_CREATE_NEW_OP_TYPE_LOCAL_STORAGE_KEY, type)
     onSubmit()
   }

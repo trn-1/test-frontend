@@ -4,7 +4,7 @@ import { getValidateFormErrors } from 'core/common/utils'
 import { MixedAgreement, MixedAgreementShape } from 'core/models/agreement'
 import {
   TGROperation,
-  TGROperationUpdateBody,
+  TGROperationCreateBody,
 } from 'core/models/goods-receipt/operation'
 import { PersonSchema, TPerson } from 'core/models/person'
 
@@ -17,7 +17,7 @@ import {
   WORKER_VALIDATION_EMPTY_TITLE,
 } from './constants'
 
-type TGROperationSchema = {
+export type TGROperationSchema = {
   id: number
   worker: TPerson | null
   creator: TPerson | null
@@ -99,21 +99,21 @@ export function getInitialValues(
       context: { values: operation, ...context },
     }
   )
-  // @ts-ignore
+
   return {
     ...formValues,
-    manualNumber: formValues?.id !== undefined && !!formValues?.number,
+    manualNumber: !!formValues?.id && !!formValues?.number,
   }
 }
 
 export function normalize(
   operation: Partial<TGROperation> = {},
   context: Partial<TGROperation> = {}
-): TGROperationUpdateBody {
+): TGROperationCreateBody {
   const casted = GROperationAPISchema.cast(operation, {
     stripUnknown: true,
     context: { values: operation, ...context },
-  }) as TGROperationUpdateBody
+  }) as TGROperationCreateBody
 
   return {
     ...casted,
