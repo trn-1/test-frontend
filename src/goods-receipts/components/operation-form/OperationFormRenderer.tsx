@@ -120,45 +120,30 @@ export function OperationFormRenderer({
       }
 
       e.preventDefault()
+      e.stopPropagation()
 
-      if (e.target === numberRef.current) {
-        if (mixedAgreementsRef.current !== null) {
-          mixedAgreementsRef.current.focus()
-        } else {
-          createDateRef.current?.focus()
-        }
+      if (timerRef.current) {
+        clearTimeout(timerRef.current)
       }
 
-      if (e.target === mixedAgreementsRef.current) {
-        timerRef.current = setTimeout(() => createDateRef.current?.focus(), 500)
-      }
+      const refs = [
+        numberRef,
+        mixedAgreementsRef,
+        createDateRef,
+        workerRef,
+        creatorRef,
+        supNumberRef,
+        supShipmentDateRef,
+        submitButtonRef,
+      ]
 
-      if (e.target === createDateRef.current) {
-        timerRef.current = setTimeout(() => workerRef.current?.focus(), 200)
-      }
+      const refIndex = refs.findLastIndex((ref) => e.target === ref.current)
 
-      if (e.target === workerRef.current) {
-        timerRef.current = setTimeout(() => creatorRef.current?.focus(), 200)
-      }
-
-      if (e.target === workerInputRef.current) {
-        timerRef.current = setTimeout(() => creatorRef.current?.focus(), 200)
-      }
-
-      if (e.target === creatorRef.current) {
-        timerRef.current = setTimeout(() => supNumberRef.current?.focus(), 200)
-      }
-
-      if (e.target === creatorInputRef.current) {
-        timerRef.current = setTimeout(() => supNumberRef.current?.focus(), 200)
-      }
-
-      if (e.target === supNumberRef.current) {
-        supShipmentDateRef.current?.focus()
-      }
-
-      if (e.target === supShipmentDateRef.current) {
-        submitButtonRef.current?.focus()
+      if (refIndex !== -1 && refs[refIndex + 1]) {
+        timerRef.current = setTimeout(
+          () => refs[refIndex + 1].current?.focus(),
+          200
+        )
       }
     }
 
@@ -403,7 +388,10 @@ export function OperationFormRenderer({
               value={input.value ? moment(input.value).toDate() : null}
               formatDate={(date) => moment(date).format('DD.MM.YYYY HH:mm')}
               parseDate={(date) => moment(date, 'DD.MM.YYYY HH:mm').toDate()}
-              popoverProps={{ wrapperTagName: 'div', targetTagName: 'div' }}
+              popoverProps={{
+                wrapperTagName: 'div',
+                targetTagName: 'div',
+              }}
               dayPickerProps={{ localeUtils }}
             />
           </FormGroup>

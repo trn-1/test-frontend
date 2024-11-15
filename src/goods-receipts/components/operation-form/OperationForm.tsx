@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Form } from 'react-final-form'
 
 import { FORM_ERROR } from 'final-form'
@@ -36,52 +36,57 @@ export default function OperationForm({
   const existSupNumberRef = useRef<TGROperation['supNumber']>()
 
   // Ф-кция проверяет номер отгрузки поставщика на совпадения с другими операциями приёмки
-  const checkOperationHasExistSupNumber = async (
-    supNumber: TGROperation['supNumber']
-  ): Promise<string | null> => {
-    if (!supNumber) {
-      return null
-    }
-
-    try {
-      const operationsResponse = await grAPI.getOperationsList({ supNumber })
-      if (!operationsResponse.total) {
+  const checkOperationHasExistSupNumber = useCallback(
+    async (supNumber: TGROperation['supNumber']): Promise<string | null> => {
+      if (!supNumber) {
         return null
       }
-      return (
-        operationsResponse.list.find(
-          ({ supNumber: supNumberResponse }) => supNumberResponse === supNumber
-        )?.supNumber || null
-      )
-    } catch (e) {
-      logger.error(e)
-      return null
-    }
-  }
 
-  const handleSubmit = async (confirmAlert = false) => {
-    try {
-      if (
-        formDataRef.current?.supNumber &&
-        formDataRef.current?.supNumber !== operation.supNumber &&
-        !confirmAlert
-      ) {
-        const existSupNumber = await checkOperationHasExistSupNumber(
-          formDataRef.current?.supNumber
-        )
-
-        if (existSupNumber !== null) {
-          existSupNumberRef.current = existSupNumber
-          setIsVisibleAlert(true)
-          return
+      try {
+        const operationsResponse = await grAPI.getOperationsList({ supNumber })
+        if (!operationsResponse.total) {
+          return null
         }
+        return (
+          operationsResponse.list.find(
+            ({ supNumber: supNumberResponse }) =>
+              supNumberResponse === supNumber
+          )?.supNumber || null
+        )
+      } catch (e) {
+        logger.error(e)
+        return null
       }
+    },
+    []
+  )
 
-      onSubmit(normalize(formDataRef.current))
-    } catch (e) {
-      return { [FORM_ERROR]: e }
-    }
-  }
+  const handleSubmit = useCallback(
+    async (confirmAlert = false) => {
+      try {
+        if (
+          formDataRef.current?.supNumber &&
+          formDataRef.current?.supNumber !== operation.supNumber &&
+          !confirmAlert
+        ) {
+          const existSupNumber = await checkOperationHasExistSupNumber(
+            formDataRef.current?.supNumber
+          )
+
+          if (existSupNumber !== null) {
+            existSupNumberRef.current = existSupNumber
+            setIsVisibleAlert(true)
+            return
+          }
+        }
+
+        onSubmit(normalize(formDataRef.current))
+      } catch (e) {
+        return { [FORM_ERROR]: e }
+      }
+    },
+    [checkOperationHasExistSupNumber, onSubmit, operation.supNumber]
+  )
 
   const initialValues = getInitialValues(operation)
 

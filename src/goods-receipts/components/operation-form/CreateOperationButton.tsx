@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { Button, ButtonGroup, Intent, IRef } from '@blueprintjs/core'
 import { IconNames } from '@blueprintjs/icons'
@@ -54,10 +54,13 @@ export const CreateOperationButton = ({
 
   const [currentOption, setCurrentOption] = useState<TOption>(initialOption)
 
-  const handleSubmit = (type: CreateNewOpTypes) => {
-    appStorage.setItem(GR_CREATE_NEW_OP_TYPE_LOCAL_STORAGE_KEY, type)
-    onSubmit()
-  }
+  const handleSubmit = useCallback(
+    (type: CreateNewOpTypes) => {
+      appStorage.setItem(GR_CREATE_NEW_OP_TYPE_LOCAL_STORAGE_KEY, type)
+      onSubmit()
+    },
+    [onSubmit]
+  )
 
   const onItemClick = (option: TOption) => {
     handleSubmit(option.id)
